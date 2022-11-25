@@ -1,0 +1,41 @@
+/* Add application styles & imports to this file! */
+@import '~bootstrap/dist/css/bootstrap';
+@import '~font-awesome/css/font-awesome.css';
+.serach-container {
+  margin-top: 20px;
+  border: 2px solid rgb(24, 22, 22);
+  padding: 15px;
+  width: 100%;
+}
+
+.label {
+  font-size: 14px;
+  padding-bottom: 10px;
+  font-weight: 500;
+}
+
+.label.list-title {
+  font-size: 20px;
+}
+
+.lable-small {
+  font-size: 10px;
+}
+
+.p-l-0 {
+  padding-left: 0px;
+}
+.stock-icon-up {
+  font-size: 35px;
+  color: rgb(47, 172, 57);
+  content: \1f883;
+}
+
+.stock-icon-down {
+  font-size: 35px;
+  color: rgb(235, 63, 11);
+  content: \1f883;
+}
+.close {
+  cursor: pointer;
+}
