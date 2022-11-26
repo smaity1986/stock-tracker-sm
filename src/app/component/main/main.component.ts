@@ -22,7 +22,7 @@ export class MainComponent implements OnInit {
       let stockArr = localStorage.getItem('stockArr');
       stockArr = JSON.parse(stockArr);
       console.log('listData', stockArr);
-      this.listData.push(stockArr);
+      this.listData = [stockArr];
       this.showLoader = false;
       this.isLoaded = true;
     } else {
