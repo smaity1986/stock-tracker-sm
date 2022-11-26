@@ -8,6 +8,7 @@ import { HelloComponent } from './hello.component';
 import { MainComponent } from './component/main/main.component';
 import { ListComponent } from './component/list/list.component';
 import { SearchComponent } from './component/search/search.component';
+import { SentimentComponent } from './component/sentiment/sentiment.component';
 
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpClientModule],
@@ -17,6 +18,7 @@ import { SearchComponent } from './component/search/search.component';
     MainComponent,
     ListComponent,
     SearchComponent,
+    SentimentComponent,
   ],
   bootstrap: [AppComponent],
 })
