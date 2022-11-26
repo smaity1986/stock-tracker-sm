@@ -6,36 +6,44 @@
     <div class="col-sm-12">
       <div class="container">
         <div class="row">
-          <div class="col-sm-4">
-            <div class="col-sm-12">
-              <div class="row">
-                <div class="col-sm-12">
-                  <label class="label">Month Name</label>
+          <div
+            *ngFor="let d of sentimentDetails['data']"
+            class="col-sm-4 border-line"
+          >
+            <div class="row">
+              <div class="col-sm-10 p-r-0">
+                <div class="row">
+                  <div class="col-sm-10">
+                    <label class="label">Month Name</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <label class="label lable-medium">Change:</label>
+                  </div>
+                  <div class="col-sm-2">
+                    <label class="label lable-medium">150</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <label class="label lable-medium">MSRP:</label>
+                  </div>
+                  <div class="col-sm-2">
+                    <label class="label lable-medium">15.22</label>
+                  </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-sm-4">
-                  <label class="label lable-medium">Change:</label>
-                </div>
-                <div class="col-sm-2">
-                  <label class="label lable-medium">150</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-3">
-                  <label class="label lable-medium">MSRP:</label>
-                </div>
-                <div class="col-sm-2">
-                  <label class="label lable-medium">15.22</label>
-                </div>
-                <div class="col-sm-6">
-                  <span class="stock-icon-up"
-                    ><i class="fa fa-arrow-up" aria-hidden="true"></i
-                  ></span>
-                  <!-- <span class="stock-icon-down"
-                  ><i class="fa fa-arrow-down" aria-hidden="true"></i
-                ></span> -->
-                </div>
+              <div
+                class="col-sm-2 p-l-0"
+                style="margin-left: -31px; margin-top:10px"
+              >
+                <span class="stock-icon-up"
+                  ><i class="fa fa-arrow-up" aria-hidden="true"></i
+                ></span>
+                <!-- <span class="stock-icon-down"
+              ><i class="fa fa-arrow-down" aria-hidden="true"></i
+            ></span> -->
               </div>
             </div>
           </div>

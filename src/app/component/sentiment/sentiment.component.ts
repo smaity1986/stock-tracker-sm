@@ -10,6 +10,21 @@ import { StockDataService } from '../../services/stock-data.service';
 export class SentimentComponent implements OnInit {
   sentimentDetails: object;
   searchSymbol: string;
+  monthList = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
   constructor(
     private _activatedRoute: ActivatedRoute,
     private stockDataService: StockDataService
@@ -21,9 +36,13 @@ export class SentimentComponent implements OnInit {
   }
 
   getDetails() {
-    this.stockDataService.getSentimentBySymbol(this.searchSymbol).subscribe((details)=>{
-      this.sentimentDetails = details;
-      console.log(details)
-    })
+    this.stockDataService
+      .getSentimentBySymbol(this.searchSymbol)
+      .subscribe((details) => {
+        this.sentimentDetails = details;
+        console.log(details);
+      });
   }
+
+  getMonthName(id: number) {}
 }

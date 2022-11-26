@@ -29,6 +29,10 @@
 .p-l-0 {
   padding-left: 0px;
 }
+
+.p-r-0 {
+  padding-right: 0px;
+}
 .stock-icon-up {
   font-size: 35px;
   color: rgb(47, 172, 57);
@@ -53,4 +57,8 @@
   margin-top: 50px;
   font-size: large;
   font-weight: bold;
+}
+
+.border-line {
+  border-bottom: 2px solid #ccc;
 }
