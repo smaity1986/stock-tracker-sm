@@ -9,6 +9,7 @@ import { StockDataService } from '../../services/stock-data.service';
 export class MainComponent implements OnInit {
   listData = [];
   isLoaded = false;
+  showLoader = false;
   stockArr = [];
   constructor(private stockDataService: StockDataService) {}
 
@@ -18,6 +19,7 @@ export class MainComponent implements OnInit {
   }
 
   searchData(searchVal) {
+    this.showLoader = true;
     this.stockDataService.getStockBySymbol(searchVal).subscribe((d) => {
       var selectedRec = {};
       if (d['count'] > 0) {
@@ -30,6 +32,7 @@ export class MainComponent implements OnInit {
         this.stockDataService.getQuoteBySymbol(searchVal).subscribe((d) => {
           this.rearrangeData(selectedRec, d);
         });
+        this.showLoader = false;
       }
     });
   }
