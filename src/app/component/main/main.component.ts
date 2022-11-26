@@ -23,13 +23,13 @@ export class MainComponent implements OnInit {
       stockArr = JSON.parse(stockArr);
       console.log('listData', stockArr, typeof stockArr);
       Object.assign(this.listData, stockArr);
-      //this.listData = stockArr;
       this.showLoader = false;
       this.isLoaded = true;
-      localStorage.removeItem('isback');
+      //localStorage.removeItem('isback');
     } else {
       localStorage.removeItem('searchVal');
       localStorage.removeItem('stockArr');
+      localStorage.removeItem('isback');
     }
   }
 
