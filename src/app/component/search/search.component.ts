@@ -20,7 +20,9 @@ export class SearchComponent implements OnInit {
 
   onSubmit(data) {
     let searchVal = data.stockInput.toUpperCase();
-    console.log(searchVal);
+    let searchArr = [];
+    searchArr.push(searchVal);
+    localStorage.setItem('searchVal', JSON.stringify(searchArr));
     this.newItemEvent.emit(searchVal);
   }
 }
