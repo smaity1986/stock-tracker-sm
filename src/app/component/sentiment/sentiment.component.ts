@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StockDataService } from '../../services/stock-data.service';
 
 @Component({
@@ -29,7 +29,8 @@ export class SentimentComponent implements OnInit {
 
   constructor(
     private _activatedRoute: ActivatedRoute,
-    private stockDataService: StockDataService
+    private stockDataService: StockDataService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -52,5 +53,10 @@ export class SentimentComponent implements OnInit {
   getMonthName(id: number) {
     id = id > 0 ? id - 1 : 1;
     return this.monthList[id];
+  }
+
+  goBacktoList() {
+    localStorage.setItem('isback', '1');
+    this.router.navigate(['']);
   }
 }

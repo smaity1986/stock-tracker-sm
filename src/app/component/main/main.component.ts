@@ -14,8 +14,21 @@ export class MainComponent implements OnInit {
   constructor(private stockDataService: StockDataService) {}
 
   ngOnInit() {
-    localStorage.removeItem('searchVal');
-    localStorage.removeItem('stockArr');
+    console.log('p');
+    let isback = localStorage.getItem('isback');
+    if (isback) {
+      this.listData = [];
+      this.showLoader = true;
+      let stockArr = localStorage.getItem('stockArr');
+      stockArr = JSON.parse(stockArr);
+      console.log('listData', stockArr);
+      this.listData.push(stockArr);
+      this.showLoader = false;
+      this.isLoaded = true;
+    } else {
+      localStorage.removeItem('searchVal');
+      localStorage.removeItem('stockArr');
+    }
   }
 
   searchData(searchVal) {
