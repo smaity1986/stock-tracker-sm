@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {StockDataService} from '../../services/stock-data.service'
+import { StockDataService } from '../../services/stock-data.service';
 
 @Component({
   selector: 'app-search',
@@ -7,19 +7,19 @@ import {StockDataService} from '../../services/stock-data.service'
   styleUrls: ['./search.component.css'],
 })
 export class SearchComponent implements OnInit {
- 
-
   stockModel = {
-    stockInput : ''
-  }
+    stockInput: '',
+  };
 
-  constructor(private stockDataService:StockDataService) {}
+  constructor(private stockDataService: StockDataService) {}
 
   ngOnInit() {}
 
   onSubmit(data) {
-    console.log(data);
-    this.stockDataService.getStockBySymbol(data)
-
+    let searchVal = data.stockInput.toUpperCase();
+    console.log(searchVal);
+    this.stockDataService.getStockBySymbol(searchVal).subscribe((d) => {
+      console.log(d);
+    });
   }
 }
