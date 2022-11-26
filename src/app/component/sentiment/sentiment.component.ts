@@ -44,5 +44,8 @@ export class SentimentComponent implements OnInit {
       });
   }
 
-  getMonthName(id: number) {}
+  getMonthName(id: number) {
+    id = id > 0 ? id - 1 : 1;
+    return this.monthList[id];
+  }
 }
