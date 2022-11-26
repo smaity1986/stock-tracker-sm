@@ -65,6 +65,7 @@ export class MainComponent implements OnInit {
     var isMatched = false;
     let stockArr = localStorage.getItem('stockArr');
     if (!stockArr) {
+      this.stockArr = [];
       return isMatched;
     }
 
@@ -74,6 +75,7 @@ export class MainComponent implements OnInit {
         return;
       }
     });
+
     return isMatched;
   }
 }

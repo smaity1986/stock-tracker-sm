@@ -7,12 +7,23 @@ opening_price: "$148.305"
 stock_sign: "down"
 symbol: "AAPL"
 type: "Common Stock" -->
-<div *ngFor="let d of data" class="serach-container">
+<div
+  *ngFor="let d of data"
+  class="serach-container"
+  id="stock{{ d.displaySymbol }}"
+>
   <div class="row">
     <div class="col-sm-10">
       <label class="label list-title">{{ d.description }}</label>
     </div>
-    <div class="col-sm-2"><span class="float-end close">X</span></div>
+    <div class="col-sm-2">
+      <span
+        class="float-end close"
+        id="remove{{ d.displaySymbol }}"
+        (click)="removeStock(d.displaySymbol)"
+        >X</span
+      >
+    </div>
     <div class="col-sm-8 p-l-0">
       <div class="container">
         <div class="row">

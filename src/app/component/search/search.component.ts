@@ -13,6 +13,8 @@ export class SearchComponent implements OnInit {
   searchArr = [];
 
   listDataSet = [];
+  isSubmitted = false;
+  showError = false;
 
   @Output() newItemEvent = new EventEmitter<string>();
 
@@ -21,11 +23,19 @@ export class SearchComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit(data) {
+    this.isSubmitted = true;
     let searchVal = data.stockInput.toUpperCase();
+    this.showError = false;
+    if (!searchVal && this.isSubmitted) {
+      this.showError = true;
+      return;
+    }
     if (!this.checkIfExists(searchVal)) {
       this.searchArr.push(searchVal);
       localStorage.setItem('searchVal', JSON.stringify(this.searchArr));
       this.newItemEvent.emit(searchVal);
+      this.stockModel.stockInput = '';
+      this.isSubmitted = false;
     }
   }
 
@@ -33,6 +43,7 @@ export class SearchComponent implements OnInit {
     var isMatched = false;
     let symbolArr = localStorage.getItem('searchVal');
     if (!symbolArr) {
+      this.searchArr = [];
       return isMatched;
     }
 

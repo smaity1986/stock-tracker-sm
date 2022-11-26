@@ -16,10 +16,7 @@
           required
           #stockInput="ngModel"
         />
-        <div
-          *ngIf="stockInput.invalid && (stockInput.dirty || stockInput.touched)"
-          class="error"
-        >
+        <div *ngIf="showError && stockInput.invalid" class="error">
           Stock Symbol is required for search
         </div>
       </div>
