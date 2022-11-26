@@ -7,6 +7,7 @@ import { StockDataService } from '../../services/stock-data.service';
   styleUrls: ['./main.component.css'],
 })
 export class MainComponent implements OnInit {
+  listData;
   constructor(private stockDataService: StockDataService) {}
 
   ngOnInit() {}
@@ -22,18 +23,14 @@ export class MainComponent implements OnInit {
           }
         });
         // var stockName = d['result'][0];
-        console.log(selectedRec);
+        //console.log(selectedRec);
         this.stockDataService.getQuoteBySymbol(searchVal).subscribe((d) => {
-          //var updatedData = this.rearrangeData(selectedRec, d);
+          this.listData = this.rearrangeData(selectedRec, d);
         });
       }
     });
   }
 
-  searchVal(d) {
-    this.searchData(d);
-    console.log('main-', d);
-  }
   rearrangeData(symboldata, quotedata) {
     let finalDataSet = {};
     finalDataSet = symboldata;
