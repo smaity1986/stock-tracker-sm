@@ -14,7 +14,6 @@ export class MainComponent implements OnInit {
   ngOnInit() {}
 
   searchData(searchVal) {
-    this.listData = [];
     this.stockDataService.getStockBySymbol(searchVal).subscribe((d) => {
       var selectedRec = {};
       if (d['count'] > 0) {
@@ -49,8 +48,31 @@ export class MainComponent implements OnInit {
     if (quotedata.h) {
       finalDataSet['high_price'] = '$' + quotedata.h;
     }
-    console.log('rearrangeData - ', finalDataSet);
-    this.listData.push(finalDataSet);
+
+    var symbol = symboldata.displaySymbol;
+    if (!this.checkIfExists(symbol)) {
+      var stockArr = [];
+      stockArr.push(finalDataSet);
+      console.log(stockArr, symbol);
+      localStorage.setItem('stockArr', JSON.stringify(stockArr));
+      this.listData.push(finalDataSet);
+    }
     this.isLoaded = true;
+  }
+
+  checkIfExists(symbol) {
+    var isMatched = false;
+    let stockArr = localStorage.getItem('stockArr');
+    if (!stockArr) {
+      return isMatched;
+    }
+
+    JSON.parse(stockArr).map((v, k) => {
+      if (v.displaySymbol == symbol) {
+        isMatched = true;
+        return;
+      }
+    });
+    return isMatched;
   }
 }
