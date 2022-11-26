@@ -21,10 +21,12 @@ export class MainComponent implements OnInit {
       this.showLoader = true;
       let stockArr = localStorage.getItem('stockArr');
       stockArr = JSON.parse(stockArr);
-      console.log('listData', stockArr);
-      this.listData = [stockArr];
+      console.log('listData', stockArr, typeof stockArr);
+      Object.assign(this.listData, stockArr);
+      //this.listData = stockArr;
       this.showLoader = false;
       this.isLoaded = true;
+      localStorage.removeItem('isback');
     } else {
       localStorage.removeItem('searchVal');
       localStorage.removeItem('stockArr');
