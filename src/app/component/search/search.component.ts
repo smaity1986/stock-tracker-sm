@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { StockDataService } from '../../services/stock-data.service';
 
 @Component({
@@ -13,6 +13,8 @@ export class SearchComponent implements OnInit {
 
   listDataSet = [];
 
+  @Output() newItemEvent = new EventEmitter<string>();
+
   constructor(private stockDataService: StockDataService) {}
 
   ngOnInit() {}
@@ -20,43 +22,43 @@ export class SearchComponent implements OnInit {
   onSubmit(data) {
     let searchVal = data.stockInput.toUpperCase();
     console.log(searchVal);
-    this.stockDataService.getStockBySymbol(searchVal).subscribe((d) => {
-      var selectedRec = {};
-      if (d['count'] > 0) {
-        d['result'].map((v, k) => {
-          if (v.displaySymbol == searchVal) {
-            selectedRec = v;
-            return;
-          }
-        });
-        // var stockName = d['result'][0];
-        console.log(selectedRec);
-        this.stockDataService.getQuoteBySymbol(searchVal).subscribe((d) => {
-          this.rearrangeData(selectedRec, d)
-        });
-      }
-    });
+    this.newItemEvent.emit(searchVal);
+    // this.stockDataService.getStockBySymbol(searchVal).subscribe((d) => {
+    //   var selectedRec = {};
+    //   if (d['count'] > 0) {
+    //     d['result'].map((v, k) => {
+    //       if (v.displaySymbol == searchVal) {
+    //         selectedRec = v;
+    //         return;
+    //       }
+    //     });
+    //     // var stockName = d['result'][0];
+    //     console.log(selectedRec);
+    //     this.stockDataService.getQuoteBySymbol(searchVal).subscribe((d) => {
+    //       var updatedData = this.rearrangeData(selectedRec, d);
+    //       this.newItemEvent.emit(updatedData);
+    //     });
+    //   }
+    // });
   }
 
-  rearrangeData(symboldata, quotedata){
+  rearrangeData(symboldata, quotedata) {
     let finalDataSet = {};
-
-    if(quotedata.c){
+    finalDataSet = symboldata;
+    if (quotedata.c) {
       finalDataSet['current_price'] = '$' + quotedata.c;
     }
-
-    if(quotedata.c){
-      finalDataSet['current_price'] = '$' + quotedata.c;
+    if (quotedata.dp) {
+      finalDataSet['change_today'] = quotedata.dp + '%';
+      finalDataSet['stock_sign'] = quotedata.dp > 0 ? 'up' : 'down';
     }
-    
-
-    if(quotedata.c){
-      finalDataSet['current_price'] = '$' + quotedata.c;
+    if (quotedata.o) {
+      finalDataSet['opening_price'] = '$' + quotedata.o;
     }
-    
-    
-
-    finalDataSet['symboldata'] = symboldata;
-    finalDataSet['quotedata'] = quotedata;
+    if (quotedata.h) {
+      finalDataSet['high_price'] = '$' + quotedata.h;
+    }
+    console.log(finalDataSet);
+    return finalDataSet;
   }
 }
