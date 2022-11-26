@@ -9,9 +9,13 @@ import { StockDataService } from '../../services/stock-data.service';
 export class MainComponent implements OnInit {
   listData = [];
   isLoaded = false;
+  stockArr = [];
   constructor(private stockDataService: StockDataService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    localStorage.removeItem('searchVal');
+    localStorage.removeItem('stockArr');
+  }
 
   searchData(searchVal) {
     this.stockDataService.getStockBySymbol(searchVal).subscribe((d) => {
@@ -23,8 +27,6 @@ export class MainComponent implements OnInit {
             return;
           }
         });
-        // var stockName = d['result'][0];
-        //console.log(selectedRec);
         this.stockDataService.getQuoteBySymbol(searchVal).subscribe((d) => {
           this.rearrangeData(selectedRec, d);
         });
@@ -51,10 +53,9 @@ export class MainComponent implements OnInit {
 
     var symbol = symboldata.displaySymbol;
     if (!this.checkIfExists(symbol)) {
-      var stockArr = [];
-      stockArr.push(finalDataSet);
-      console.log(stockArr, symbol);
-      localStorage.setItem('stockArr', JSON.stringify(stockArr));
+      this.stockArr.push(finalDataSet);
+      console.log(this.stockArr, symbol);
+      localStorage.setItem('stockArr', JSON.stringify(this.stockArr));
       this.listData.push(finalDataSet);
     }
     this.isLoaded = true;

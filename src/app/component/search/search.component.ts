@@ -10,6 +10,8 @@ export class SearchComponent implements OnInit {
     stockInput: '',
   };
 
+  searchArr = [];
+
   listDataSet = [];
 
   @Output() newItemEvent = new EventEmitter<string>();
@@ -20,9 +22,26 @@ export class SearchComponent implements OnInit {
 
   onSubmit(data) {
     let searchVal = data.stockInput.toUpperCase();
-    let searchArr = [];
-    searchArr.push(searchVal);
-    localStorage.setItem('searchVal', JSON.stringify(searchArr));
-    this.newItemEvent.emit(searchVal);
+    if (!this.checkIfExists(searchVal)) {
+      this.searchArr.push(searchVal);
+      localStorage.setItem('searchVal', JSON.stringify(this.searchArr));
+      this.newItemEvent.emit(searchVal);
+    }
+  }
+
+  checkIfExists(symbol) {
+    var isMatched = false;
+    let symbolArr = localStorage.getItem('searchVal');
+    if (!symbolArr) {
+      return isMatched;
+    }
+
+    JSON.parse(symbolArr).map((v, k) => {
+      if (v == symbol) {
+        isMatched = true;
+        return;
+      }
+    });
+    return isMatched;
   }
 }
