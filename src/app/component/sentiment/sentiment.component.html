@@ -1,9 +1,12 @@
 <div class="serach-container">
-  <div class="row">
+  <div class="col-sm-12 loading" *ngIf="showLoader">
+    Fetching Data, Please wait ..
+  </div>
+  <div class="row" *ngIf="isLoaded && !showLoader">
     <div class="col-sm-12">
       <label class="label list-title">{{ searchSymbol }}</label>
     </div>
-    <div class="col-sm-12">
+    <div class="col-sm-12 p-l-0">
       <div class="container">
         <div class="row">
           <div
@@ -14,7 +17,9 @@
               <div class="col-sm-10 p-r-0">
                 <div class="row">
                   <div class="col-sm-10">
-                    <label class="label">Month Name</label>
+                    <label class="label">{{
+                      getMonthName(d.month) | uppercase
+                    }}</label>
                   </div>
                 </div>
                 <div class="row">
@@ -22,15 +27,17 @@
                     <label class="label lable-medium">Change:</label>
                   </div>
                   <div class="col-sm-2">
-                    <label class="label lable-medium">150</label>
+                    <label class="label lable-medium">{{ d.change }}</label>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-sm-4">
-                    <label class="label lable-medium">MSRP:</label>
+                    <label class="label lable-medium">MSPR:</label>
                   </div>
                   <div class="col-sm-2">
-                    <label class="label lable-medium">15.22</label>
+                    <label class="label lable-medium">{{
+                      d.mspr | number: '2.2-2'
+                    }}</label>
                   </div>
                 </div>
               </div>
@@ -38,17 +45,24 @@
                 class="col-sm-2 p-l-0"
                 style="margin-left: -31px; margin-top:10px"
               >
-                <span class="stock-icon-up"
+                <span *ngIf="d.change > 0" class="stock-icon-up"
                   ><i class="fa fa-arrow-up" aria-hidden="true"></i
                 ></span>
-                <!-- <span class="stock-icon-down"
-              ><i class="fa fa-arrow-down" aria-hidden="true"></i
-            ></span> -->
+                <span *ngIf="d.change < 0" class="stock-icon-down"
+                  ><i class="fa fa-arrow-down" aria-hidden="true"></i
+                ></span>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-8 mt-3">
+      <a class="btn btn-secondary btn-sm rounded-0" id="trackBtn" routerLink="">
+        < Back to list of stocks</a
+      >
     </div>
   </div>
 </div>

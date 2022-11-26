@@ -10,6 +10,8 @@ import { StockDataService } from '../../services/stock-data.service';
 export class SentimentComponent implements OnInit {
   sentimentDetails: object;
   searchSymbol: string;
+  isLoaded = false;
+  showLoader = false;
   monthList = [
     'January',
     'February',
@@ -36,9 +38,12 @@ export class SentimentComponent implements OnInit {
   }
 
   getDetails() {
+    this.showLoader = true;
     this.stockDataService
       .getSentimentBySymbol(this.searchSymbol)
       .subscribe((details) => {
+        this.isLoaded = true;
+        this.showLoader = false;
         this.sentimentDetails = details;
         console.log(details);
       });
