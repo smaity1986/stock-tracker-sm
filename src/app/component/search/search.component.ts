@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {StockDataService} from '../../services/stock-data.service'
 
 @Component({
   selector: 'app-search',
@@ -12,11 +13,13 @@ export class SearchComponent implements OnInit {
     stockInput : ''
   }
 
-  constructor() {}
+  constructor(private stockDataService:StockDataService) {}
 
   ngOnInit() {}
 
   onSubmit(data) {
     console.log(data);
+    this.stockDataService.getStockBySymbol(data)
+
   }
 }
