@@ -2,7 +2,7 @@
   <div class="col-sm-12">
     <app-search (newItemEvent)="searchData($event)"></app-search>
   </div>
-  <div class="col-sm-12">
+  <div class="col-sm-12" *ngIf="isLoaded">
     <app-list [data]="listData"></app-list>
   </div>
 </div>
