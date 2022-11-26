@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-list',
@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ListComponent implements OnInit {
   @Input() data;
+  @Output() removeItemEvent = new EventEmitter<string>();
 
   constructor() {}
 
@@ -20,7 +21,7 @@ export class ListComponent implements OnInit {
 
     let symbolArr = JSON.parse(symbols);
     let stockArr = JSON.parse(stocks);
-    console.log(symbol, symbolArr, stockArr);
+    //console.log(symbol, symbolArr, stockArr);
 
     stockArr.map((v, k) => {
       if (v.displaySymbol == symbol) {
@@ -35,13 +36,14 @@ export class ListComponent implements OnInit {
       }
     });
     document.getElementById('stock' + symbol).remove();
+    this.removeItemEvent.emit(symbol);
     if (symbolArr.length && stockArr.length) {
       localStorage.setItem('searchVal', JSON.stringify(symbolArr));
       localStorage.setItem('stockArr', JSON.stringify(stockArr));
     } else {
       localStorage.removeItem('searchVal');
       localStorage.removeItem('stockArr');
-      localStorage.removeItem('isback');
+      //localStorage.removeItem('isback');
     }
   }
 }

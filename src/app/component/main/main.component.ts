@@ -16,16 +16,17 @@ export class MainComponent implements OnInit {
   ngOnInit() {
     console.log('p');
     let isback = localStorage.getItem('isback');
+
     if (isback) {
       this.listData = [];
       this.showLoader = true;
       let stockArr = localStorage.getItem('stockArr');
       stockArr = JSON.parse(stockArr);
-      console.log('listData', stockArr, typeof stockArr);
+      //console.log('listData', stockArr, typeof stockArr);
       Object.assign(this.listData, stockArr);
       this.showLoader = false;
       this.isLoaded = true;
-      //localStorage.removeItem('isback');
+      localStorage.removeItem('isback');
     } else {
       localStorage.removeItem('searchVal');
       localStorage.removeItem('stockArr');
@@ -72,9 +73,10 @@ export class MainComponent implements OnInit {
     var symbol = symboldata.displaySymbol;
     if (!this.checkIfExists(symbol)) {
       this.stockArr.push(finalDataSet);
-      console.log(this.stockArr, symbol);
+      //console.log(this.stockArr, symbol);
       localStorage.setItem('stockArr', JSON.stringify(this.stockArr));
       this.listData.push(finalDataSet);
+      //Object.assign(this.listData, [finalDataSet]);
     }
     this.isLoaded = true;
   }
@@ -95,5 +97,15 @@ export class MainComponent implements OnInit {
     });
 
     return isMatched;
+  }
+
+  clearMainData(symbol) {
+    this.listData.map((v, k) => {
+      if (v.displaySymbol == symbol) {
+        this.listData.splice(k, 1);
+        return;
+      }
+    });
+    console.log(this.listData, symbol);
   }
 }

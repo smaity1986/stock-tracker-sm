@@ -6,6 +6,9 @@
     Fetching Data, Please wait ..
   </div>
   <div class="col-sm-12" *ngIf="isLoaded && !showLoader">
-    <app-list [data]="listData"></app-list>
+    <app-list
+      (removeItemEvent)="clearMainData($event)"
+      [data]="listData"
+    ></app-list>
   </div>
 </div>
