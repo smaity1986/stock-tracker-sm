@@ -69,9 +69,12 @@ type: "Common Stock" -->
   </div>
   <div class="row">
     <div class="col-sm-8 mt-3">
-      <button class="btn btn-secondary btn-sm rounded-0" id="trackBtn">
-        Go to social sentiment details >
-      </button>
+      <a
+        class="btn btn-secondary btn-sm rounded-0"
+        id="trackBtn"
+        routerLink="/sentiment/{{ d.displaySymbol }}"
+        >Go to social sentiment details ></a
+      >
     </div>
   </div>
 </div>

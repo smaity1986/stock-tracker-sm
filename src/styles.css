@@ -28,13 +28,11 @@
 .stock-icon-up {
   font-size: 35px;
   color: rgb(47, 172, 57);
-  content: \1f883;
 }
 
 .stock-icon-down {
   font-size: 35px;
   color: rgb(235, 63, 11);
-  content: \1f883;
 }
 .close {
   cursor: pointer;

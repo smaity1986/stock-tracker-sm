@@ -10,13 +10,9 @@ export class StockDataService {
   API_URL = environment.API_URL;
   API_KEY = environment.API_KEY;
 
-  // headers = new HttpHeaders()
-  //   .set('X-Finnhub-Token', this.API_KEY)
-  //   .set('Access-Control-Allow-Origin', '*');
-
   constructor(private http: HttpClient) {}
 
-  getStockBySymbol(sym: string): Observable<Object> {
+  getStockBySymbol(sym: string) {
     return this.http.get(
       this.API_URL + '/search?q=' + sym + '&token=' + this.API_KEY
     );
@@ -33,7 +29,7 @@ export class StockDataService {
       this.API_URL +
         '/stock/insider-sentiment?symbol=' +
         sym +
-        '&from=2015-01-01&to=2022-03-01&token=' +
+        '&from=2022-01-01&to=2022-12-31&token=' +
         this.API_KEY
     );
   }

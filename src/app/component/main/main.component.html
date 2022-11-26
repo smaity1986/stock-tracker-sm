@@ -5,7 +5,7 @@
   <div class="col-sm-12 loading" *ngIf="showLoader">
     Fetching Data, Please wait ..
   </div>
-  <div class="col-sm-12" *ngIf="isLoaded">
+  <div class="col-sm-12" *ngIf="isLoaded && !showLoader">
     <app-list [data]="listData"></app-list>
   </div>
 </div>
