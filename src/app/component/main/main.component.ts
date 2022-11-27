@@ -52,17 +52,17 @@ export class MainComponent implements OnInit {
     let finalDataSet = {};
     finalDataSet = symboldata;
     if (quotedata['c']) {
-      finalDataSet['current_price'] = '$' + quotedata['c'];
+      finalDataSet['current_price'] = quotedata['c'];
     }
     if (quotedata['dp']) {
-      finalDataSet['change_today'] = quotedata['dp'] + '%';
+      finalDataSet['change_today'] = quotedata['dp'];
       finalDataSet['stock_sign'] = quotedata['dp'] > 0 ? 'up' : 'down';
     }
     if (quotedata['o']) {
-      finalDataSet['opening_price'] = '$' + quotedata['o'];
+      finalDataSet['opening_price'] = quotedata['o'];
     }
     if (quotedata['h']) {
-      finalDataSet['high_price'] = '$' + quotedata['h'];
+      finalDataSet['high_price'] = quotedata['h'];
     }
 
     var symbol = symboldata['displaySymbol'];

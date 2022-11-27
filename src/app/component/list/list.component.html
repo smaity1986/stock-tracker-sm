@@ -20,12 +20,12 @@
         <div class="row">
           <div class="col-sm-5">
             <label class="label lable-small"
-              >Change Today : {{ d.change_today }}</label
+              >Change Today : {{ d.change_today | number: '1.2-2' }} %</label
             >
           </div>
           <div class="col-sm-4">
             <label class="label lable-small"
-              >Opening Price : {{ d.opening_price }}</label
+              >Opening Price : ${{ d.opening_price | number: '1.2-2' }}</label
             >
           </div>
         </div>
@@ -34,12 +34,12 @@
         <div class="row">
           <div class="col-sm-5">
             <label class="label lable-small"
-              >Current price : {{ d.current_price }}</label
+              >Current price : ${{ d.current_price | number: '1.2-2' }}</label
             >
           </div>
           <div class="col-sm-4">
             <label class="label lable-small"
-              >High price : {{ d.high_price }}</label
+              >High price : ${{ d.high_price | number: '1.2-2' }}</label
             >
           </div>
         </div>
