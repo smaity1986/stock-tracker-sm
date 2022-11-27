@@ -27,7 +27,9 @@
                     <label class="label lable-medium">Change:</label>
                   </div>
                   <div class="col-sm-2">
-                    <label class="label lable-medium">{{ d.change }}</label>
+                    <label class="label lable-medium">{{
+                      d.change > 0 ? '+' + d.change : d.change
+                    }}</label>
                   </div>
                 </div>
                 <div class="row">
@@ -62,7 +64,7 @@
     <div class="col-sm-8 mt-3">
       <a
         class="btn btn-secondary btn-sm rounded-0"
-        id="trackBtn"
+        id="backBtn"
         (click)="goBacktoList()"
       >
         < Back to list of stocks</a
