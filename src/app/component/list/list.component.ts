@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./list.component.css'],
 })
 export class ListComponent implements OnInit {
-  @Input() data;
+  @Input() data = [];
   @Output() removeItemEvent = new EventEmitter<string>();
 
   constructor(private router: Router) {}

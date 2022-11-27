@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -25,17 +24,6 @@ export class StockDataService {
   }
 
   getSentimentBySymbol(sym: string, from: string, to: string) {
-    console.log(
-      this.API_URL +
-        'stock/insider-sentiment?symbol=' +
-        sym +
-        '&from=' +
-        from +
-        '&to=' +
-        to +
-        '&token=' +
-        this.API_KEY
-    );
     return this.http.get(
       this.API_URL +
         '/stock/insider-sentiment?symbol=' +
