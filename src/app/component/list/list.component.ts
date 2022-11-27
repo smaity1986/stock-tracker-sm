@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -9,7 +10,7 @@ export class ListComponent implements OnInit {
   @Input() data;
   @Output() removeItemEvent = new EventEmitter<string>();
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
     console.log('List-', this.data);
@@ -45,5 +46,10 @@ export class ListComponent implements OnInit {
       localStorage.removeItem('stockArr');
       localStorage.removeItem('isback');
     }
+  }
+
+  goToDetails(searchVal: string, name: string) {
+    localStorage.setItem('sentiment_name', name);
+    this.router.navigate(['/sentiment/' + searchVal]);
   }
 }

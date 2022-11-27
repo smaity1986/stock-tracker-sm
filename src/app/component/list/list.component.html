@@ -62,8 +62,8 @@
     <div class="col-sm-8 mt-3">
       <a
         class="btn btn-secondary btn-sm rounded-0"
-        id="trackBtn"
-        routerLink="/sentiment/{{ d.displaySymbol }}"
+        id="sentiment{{ d.displaySymbol }}"
+        (click)="goToDetails(d.displaySymbol, d.description)"
         >Go to social sentiment details ></a
       >
     </div>

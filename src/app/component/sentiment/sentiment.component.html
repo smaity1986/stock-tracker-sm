@@ -4,7 +4,7 @@
   </div>
   <div class="row" *ngIf="isLoaded && !showLoader">
     <div class="col-sm-12">
-      <label class="label list-title">{{ searchSymbol }}</label>
+      <label class="label list-title">{{ lable }}</label>
     </div>
     <div class="col-sm-12 p-l-0">
       <div class="container">
@@ -58,7 +58,7 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="isLoaded && !showLoader">
     <div class="col-sm-8 mt-3">
       <a
         class="btn btn-secondary btn-sm rounded-0"

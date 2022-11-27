@@ -12,6 +12,7 @@ export class SentimentComponent implements OnInit {
   searchSymbol: string;
   isLoaded = false;
   showLoader = false;
+  lable: string;
   monthList = [
     'January',
     'February',
@@ -35,6 +36,7 @@ export class SentimentComponent implements OnInit {
 
   ngOnInit() {
     this.searchSymbol = this._activatedRoute.snapshot.params.symbol;
+    this.lable = localStorage.getItem('sentiment_name');
     this.getDetails();
   }
 
