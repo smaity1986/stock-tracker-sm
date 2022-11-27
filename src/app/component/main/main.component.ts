@@ -42,24 +42,24 @@ export class MainComponent implements OnInit {
     });
   }
 
-  rearrangeData(symboldata, quotedata) {
+  rearrangeData(symboldata: object, quotedata: object) {
     let finalDataSet = {};
     finalDataSet = symboldata;
-    if (quotedata.c) {
-      finalDataSet['current_price'] = '$' + quotedata.c;
+    if (quotedata['c']) {
+      finalDataSet['current_price'] = '$' + quotedata['c'];
     }
-    if (quotedata.dp) {
-      finalDataSet['change_today'] = quotedata.dp + '%';
-      finalDataSet['stock_sign'] = quotedata.dp > 0 ? 'up' : 'down';
+    if (quotedata['dp']) {
+      finalDataSet['change_today'] = quotedata['dp'] + '%';
+      finalDataSet['stock_sign'] = quotedata['dp'] > 0 ? 'up' : 'down';
     }
-    if (quotedata.o) {
-      finalDataSet['opening_price'] = '$' + quotedata.o;
+    if (quotedata['o']) {
+      finalDataSet['opening_price'] = '$' + quotedata['o'];
     }
-    if (quotedata.h) {
-      finalDataSet['high_price'] = '$' + quotedata.h;
+    if (quotedata['h']) {
+      finalDataSet['high_price'] = '$' + quotedata['h'];
     }
 
-    var symbol = symboldata.displaySymbol;
+    var symbol = symboldata['displaySymbol'];
     if (!this.checkIfExists(symbol)) {
       this.listData.push(finalDataSet);
       localStorage.setItem('stockArr', JSON.stringify(this.listData));
