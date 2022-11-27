@@ -12,14 +12,11 @@ export class ListComponent implements OnInit {
 
   constructor(private router: Router) {}
 
-  ngOnInit() {
-    //console.log('List-', this.data);
-  }
+  ngOnInit() {}
 
   removeStock(symbol: string) {
     let stocks = localStorage.getItem('stockArr');
     let stockArr = JSON.parse(stocks);
-    //console.log(symbol, symbolArr, stockArr);
 
     stockArr.map((v, k) => {
       if (v.displaySymbol == symbol) {
