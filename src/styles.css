@@ -62,3 +62,10 @@
 .border-line {
   border-bottom: 1px solid #ccc;
 }
+
+.sentiment {
+  margin-left: -179px;
+  margin-top: 10px;
+  display: block;
+  position: relative;
+}
