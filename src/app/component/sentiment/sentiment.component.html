@@ -4,7 +4,9 @@
   </div>
   <div class="row" *ngIf="isLoaded && !showLoader">
     <div class="col-sm-12">
-      <label class="label list-title">{{ lable }}</label>
+      <label class="label list-title">{{
+        lable + ' (' + searchSymbol + ')'
+      }}</label>
     </div>
     <div class="col-sm-12 p-l-0">
       <div class="container">
