@@ -25,12 +25,23 @@ export class ListComponent implements OnInit {
       }
     });
 
+    let stocksSym = localStorage.getItem('searchSymbol');
+    let symArr = JSON.parse(stocksSym);
+    symArr.map((v, k) => {
+      if (v == symbol) {
+        symArr.splice(k, 1);
+        return;
+      }
+    });
+
     document.getElementById('stock' + symbol).remove();
     this.removeItemEvent.emit(symbol);
     if (stockArr.length) {
       localStorage.setItem('stockArr', JSON.stringify(stockArr));
+      localStorage.setItem('searchSymbol', JSON.stringify(symArr));
     } else {
       localStorage.removeItem('stockArr');
+      localStorage.removeItem('searchSymbol');
       localStorage.removeItem('sentiment_name');
     }
   }

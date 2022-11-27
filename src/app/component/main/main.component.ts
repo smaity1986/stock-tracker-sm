@@ -11,14 +11,20 @@ export class MainComponent implements OnInit {
   isLoaded = false;
   showLoader = false;
   stockArr = [];
+  stockSymbol = [];
   constructor(private stockDataService: StockDataService) {}
 
   ngOnInit() {
-    this.listData = [];
     this.showLoader = true;
+    this.listData = [];
     let stockArr = localStorage.getItem('stockArr');
     stockArr = JSON.parse(stockArr);
     Object.assign(this.listData, stockArr);
+
+    this.stockSymbol = [];
+    let stockSym = localStorage.getItem('searchSymbol');
+    stockSym = JSON.parse(stockSym);
+    Object.assign(this.stockSymbol, stockSym);
     this.showLoader = false;
     this.isLoaded = true;
   }
@@ -63,6 +69,8 @@ export class MainComponent implements OnInit {
     if (!this.checkIfExists(symbol)) {
       this.listData.push(finalDataSet);
       localStorage.setItem('stockArr', JSON.stringify(this.listData));
+      this.stockSymbol.push(symbol);
+      localStorage.setItem('searchSymbol', JSON.stringify(this.stockSymbol));
     }
     this.isLoaded = true;
   }
@@ -89,6 +97,13 @@ export class MainComponent implements OnInit {
     this.listData.map((v, k) => {
       if (v.displaySymbol == symbol) {
         this.listData.splice(k, 1);
+        return;
+      }
+    });
+
+    this.stockSymbol.map((v, k) => {
+      if (v == symbol) {
+        this.stockSymbol.splice(k, 1);
         return;
       }
     });
