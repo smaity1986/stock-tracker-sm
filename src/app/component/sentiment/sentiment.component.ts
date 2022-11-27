@@ -42,22 +42,15 @@ export class SentimentComponent implements OnInit {
 
   getDetails() {
     this.showLoader = true;
+    var d = new Date();
+    let to = this.formatDate(d.toLocaleDateString());
+    d.setMonth(d.getMonth() - 3);
+    let from = this.formatDate(d.toLocaleDateString());
     this.stockDataService
-      .getSentimentBySymbol(this.searchSymbol)
+      .getSentimentBySymbol(this.searchSymbol, from, to)
       .subscribe((details) => {
         this.isLoaded = true;
         this.showLoader = false;
-        let newDetails = [];
-
-        details['data'].map((v, k) => {
-          if (k > details['data'].length - 4) {
-            newDetails[k] = v;
-          }
-        });
-        newDetails = newDetails.filter(function (element) {
-          return element !== undefined;
-        });
-        details['data'] = newDetails;
         this.sentimentDetails = details;
       });
   }
@@ -69,5 +62,17 @@ export class SentimentComponent implements OnInit {
 
   goBacktoList() {
     this.router.navigate(['']);
+  }
+
+  formatDate(date: string) {
+    var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
   }
 }

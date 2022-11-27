@@ -22,17 +22,15 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {}
 
-  onSubmit(data) {
+  onSubmit(data: object) {
     this.isSubmitted = true;
-    let searchVal = data.stockInput.toUpperCase();
+    let searchVal = data['stockInput'].toUpperCase();
     this.showError = false;
     if (!searchVal && this.isSubmitted) {
       this.showError = true;
       return;
     }
     if (!this.checkIfExists(searchVal)) {
-      //this.searchArr.push(searchVal);
-      // localStorage.setItem('searchVal', JSON.stringify(this.searchArr));
       this.newItemEvent.emit(searchVal);
       this.stockModel.stockInput = '';
       this.isSubmitted = false;

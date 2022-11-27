@@ -24,12 +24,27 @@ export class StockDataService {
     );
   }
 
-  getSentimentBySymbol(sym: string) {
+  getSentimentBySymbol(sym: string, from: string, to: string) {
+    console.log(
+      this.API_URL +
+        'stock/insider-sentiment?symbol=' +
+        sym +
+        '&from=' +
+        from +
+        '&to=' +
+        to +
+        '&token=' +
+        this.API_KEY
+    );
     return this.http.get(
       this.API_URL +
         '/stock/insider-sentiment?symbol=' +
         sym +
-        '&from=2022-01-01&to=2022-12-31&token=' +
+        '&from=' +
+        from +
+        '&to=' +
+        to +
+        '&token=' +
         this.API_KEY
     );
   }
