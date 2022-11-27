@@ -14,16 +14,16 @@ export class MainComponent implements OnInit {
   constructor(private stockDataService: StockDataService) {}
 
   ngOnInit() {
+    this.listData = [];
     this.showLoader = true;
     let stockArr = localStorage.getItem('stockArr');
     stockArr = JSON.parse(stockArr);
     Object.assign(this.listData, stockArr);
     this.showLoader = false;
     this.isLoaded = true;
-    localStorage.removeItem('isback');
   }
 
-  searchData(searchVal) {
+  searchData(searchVal: string) {
     this.showLoader = true;
     this.stockDataService.getStockBySymbol(searchVal).subscribe((d) => {
       var selectedRec = {};
@@ -61,9 +61,8 @@ export class MainComponent implements OnInit {
 
     var symbol = symboldata.displaySymbol;
     if (!this.checkIfExists(symbol)) {
-      this.stockArr.push(finalDataSet);
-      localStorage.setItem('stockArr', JSON.stringify(this.stockArr));
       this.listData.push(finalDataSet);
+      localStorage.setItem('stockArr', JSON.stringify(this.listData));
     }
     this.isLoaded = true;
   }
@@ -93,6 +92,5 @@ export class MainComponent implements OnInit {
         return;
       }
     });
-    console.log(this.listData, symbol);
   }
 }

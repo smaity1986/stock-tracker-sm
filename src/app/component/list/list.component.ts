@@ -16,7 +16,7 @@ export class ListComponent implements OnInit {
     //console.log('List-', this.data);
   }
 
-  removeStock(symbol) {
+  removeStock(symbol: string) {
     let symbols = localStorage.getItem('searchVal');
     let stocks = localStorage.getItem('stockArr');
 
