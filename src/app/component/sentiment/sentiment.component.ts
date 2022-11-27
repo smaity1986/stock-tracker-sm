@@ -45,22 +45,18 @@ export class SentimentComponent implements OnInit {
     this.stockDataService
       .getSentimentBySymbol(this.searchSymbol)
       .subscribe((details: Array<Object>) => {
-        console.log(details, this.sentimentDetails);
         this.isLoaded = true;
         this.showLoader = false;
         let newDetails = [];
 
         details['data'].map((v, k) => {
-          console.log(k, v);
           if (k > details['data'].length - 4) {
             newDetails[k] = v;
           }
         });
-        console.log(newDetails);
         newDetails = newDetails.filter(function (element) {
           return element !== undefined;
         });
-        console.log(newDetails);
         details['data'] = newDetails;
         this.sentimentDetails = details;
       });
