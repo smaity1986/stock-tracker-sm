@@ -13,7 +13,7 @@ export class ListComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    console.log('List-', this.data);
+    //console.log('List-', this.data);
   }
 
   removeStock(symbol) {

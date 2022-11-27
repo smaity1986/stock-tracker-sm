@@ -44,7 +44,7 @@ export class SentimentComponent implements OnInit {
     this.showLoader = true;
     this.stockDataService
       .getSentimentBySymbol(this.searchSymbol)
-      .subscribe((details: Array<Object>) => {
+      .subscribe((details) => {
         this.isLoaded = true;
         this.showLoader = false;
         let newDetails = [];
@@ -68,7 +68,6 @@ export class SentimentComponent implements OnInit {
   }
 
   goBacktoList() {
-    localStorage.setItem('isback', '1');
     this.router.navigate(['']);
   }
 }

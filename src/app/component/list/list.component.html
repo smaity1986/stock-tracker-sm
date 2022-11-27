@@ -15,41 +15,37 @@
         >X</span
       >
     </div>
-    <div class="col-sm-8 p-l-0">
+    <div class="col-sm-10 p-l-0">
       <div class="container">
         <div class="row">
+          <div class="col-sm-5">
+            <label class="label lable-small"
+              >Change Today : {{ d.change_today }}</label
+            >
+          </div>
           <div class="col-sm-4">
-            <label class="label lable-small">Change Today : </label>
-          </div>
-          <div class="col-sm-2">
-            <label class="label lable-small">{{ d.change_today }}</label>
-          </div>
-          <div class="col-sm-4">
-            <label class="label lable-small">Opening Price : </label>
-          </div>
-          <div class="col-sm-2">
-            <label class="label lable-small">{{ d.opening_price }}</label>
+            <label class="label lable-small"
+              >Opening Price : {{ d.opening_price }}</label
+            >
           </div>
         </div>
       </div>
       <div class="container">
         <div class="row">
+          <div class="col-sm-5">
+            <label class="label lable-small"
+              >Current price : {{ d.current_price }}</label
+            >
+          </div>
           <div class="col-sm-4">
-            <label class="label lable-small">Current price : </label>
-          </div>
-          <div class="col-sm-2">
-            <label class="label lable-small">{{ d.current_price }}</label>
-          </div>
-          <div class="col-sm-4">
-            <label class="label lable-small">High price : </label>
-          </div>
-          <div class="col-sm-2">
-            <label class="label lable-small">{{ d.high_price }}</label>
+            <label class="label lable-small"
+              >High price : {{ d.high_price }}</label
+            >
           </div>
         </div>
       </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-2">
       <span *ngIf="d.stock_sign == 'up'" class="stock-icon-up"
         ><i class="fa fa-arrow-up" aria-hidden="true"></i
       ></span>
