@@ -44,7 +44,7 @@ export class ListComponent implements OnInit {
     } else {
       localStorage.removeItem('searchVal');
       localStorage.removeItem('stockArr');
-      localStorage.removeItem('isback');
+      localStorage.removeItem('sentiment_name');
     }
   }
 
