@@ -17,10 +17,7 @@ export class ListComponent implements OnInit {
   }
 
   removeStock(symbol: string) {
-    let symbols = localStorage.getItem('searchVal');
     let stocks = localStorage.getItem('stockArr');
-
-    let symbolArr = JSON.parse(symbols);
     let stockArr = JSON.parse(stocks);
     //console.log(symbol, symbolArr, stockArr);
 
@@ -30,19 +27,12 @@ export class ListComponent implements OnInit {
         return;
       }
     });
-    symbolArr.map((v, k) => {
-      if (v == symbol) {
-        symbolArr.splice(k, 1);
-        return;
-      }
-    });
+
     document.getElementById('stock' + symbol).remove();
     this.removeItemEvent.emit(symbol);
-    if (symbolArr.length && stockArr.length) {
-      localStorage.setItem('searchVal', JSON.stringify(symbolArr));
+    if (stockArr.length) {
       localStorage.setItem('stockArr', JSON.stringify(stockArr));
     } else {
-      localStorage.removeItem('searchVal');
       localStorage.removeItem('stockArr');
       localStorage.removeItem('sentiment_name');
     }

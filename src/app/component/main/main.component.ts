@@ -67,7 +67,7 @@ export class MainComponent implements OnInit {
     this.isLoaded = true;
   }
 
-  checkIfExists(symbol) {
+  checkIfExists(symbol: string) {
     var isMatched = false;
     let stockArr = localStorage.getItem('stockArr');
     if (!stockArr) {
@@ -85,7 +85,7 @@ export class MainComponent implements OnInit {
     return isMatched;
   }
 
-  clearMainData(symbol) {
+  clearMainData(symbol: string) {
     this.listData.map((v, k) => {
       if (v.displaySymbol == symbol) {
         this.listData.splice(k, 1);

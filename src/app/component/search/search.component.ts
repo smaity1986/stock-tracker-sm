@@ -10,7 +10,7 @@ export class SearchComponent implements OnInit {
     stockInput: '',
   };
 
-  searchArr = [];
+  stockArr = [];
 
   listDataSet = [];
   isSubmitted = false;
@@ -31,28 +31,29 @@ export class SearchComponent implements OnInit {
       return;
     }
     if (!this.checkIfExists(searchVal)) {
-      this.searchArr.push(searchVal);
-      localStorage.setItem('searchVal', JSON.stringify(this.searchArr));
+      //this.searchArr.push(searchVal);
+      // localStorage.setItem('searchVal', JSON.stringify(this.searchArr));
       this.newItemEvent.emit(searchVal);
       this.stockModel.stockInput = '';
       this.isSubmitted = false;
     }
   }
 
-  checkIfExists(symbol) {
+  checkIfExists(symbol: string) {
     var isMatched = false;
-    let symbolArr = localStorage.getItem('searchVal');
-    if (!symbolArr) {
-      this.searchArr = [];
+    let stockArr = localStorage.getItem('stockArr');
+    if (!stockArr) {
+      this.stockArr = [];
       return isMatched;
     }
 
-    JSON.parse(symbolArr).map((v, k) => {
-      if (v == symbol) {
+    JSON.parse(stockArr).map((v, k) => {
+      if (v.displaySymbol == symbol) {
         isMatched = true;
         return;
       }
     });
+
     return isMatched;
   }
 }
