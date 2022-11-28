@@ -60,6 +60,16 @@ export class SentimentComponent implements OnInit {
           this.sentimentDetails = [];
         },
         next: (details) => {
+          if (details['data'].length && details['data'].length < 3) {
+            var lastMonth =
+              details['data'][details['data'].length - 1]['month'];
+            for (let i = details['data'].length + 1; i <= 3; i++) {
+              lastMonth = lastMonth == 12 ? 1 : lastMonth + 1;
+              details['data'][i - 1] = new Object();
+              details['data'][i - 1]['month'] = lastMonth;
+              details['data'][i - 1]['nodata'] = 1;
+            }
+          }
           this.sentimentDetails = details;
         },
         complete: () => {},
