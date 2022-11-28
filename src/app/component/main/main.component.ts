@@ -52,7 +52,7 @@ export class MainComponent implements OnInit {
             });
 
             if (Object.keys(selectedRec).length === 0) {
-              return;
+              selectedRec = d['result'][0];
             }
             this.stockDataService.getQuoteBySymbol(searchVal).subscribe((d) => {
               this.rearrangeData(selectedRec, d);
