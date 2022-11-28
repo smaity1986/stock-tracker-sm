@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StockDataService } from '../../services/stock-data.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-sentiment',
@@ -48,10 +49,20 @@ export class SentimentComponent implements OnInit {
     let from = this.formatDate(d.toLocaleDateString());
     this.stockDataService
       .getSentimentBySymbol(this.searchSymbol, from, to)
-      .subscribe((details) => {
-        this.isLoaded = true;
-        this.showLoader = false;
-        this.sentimentDetails = details;
+      .pipe(
+        finalize(() => {
+          this.isLoaded = true;
+          this.showLoader = false;
+        })
+      )
+      .subscribe({
+        error: (err) => {
+          this.sentimentDetails = [];
+        },
+        next: (details) => {
+          this.sentimentDetails = details;
+        },
+        complete: () => {},
       });
   }
 

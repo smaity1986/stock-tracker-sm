@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { finalize } from 'rxjs';
 import { StockDataService } from '../../services/stock-data.service';
 
 @Component({
@@ -31,21 +32,31 @@ export class MainComponent implements OnInit {
 
   searchData(searchVal: string) {
     this.showLoader = true;
-    this.stockDataService.getStockBySymbol(searchVal).subscribe((d) => {
-      var selectedRec = {};
-      if (d['count'] > 0) {
-        d['result'].map((v, k) => {
-          if (v.displaySymbol == searchVal) {
-            selectedRec = v;
-            return;
+    this.stockDataService
+      .getStockBySymbol(searchVal)
+      .pipe(
+        finalize(() => {
+          this.showLoader = false;
+        })
+      )
+      .subscribe({
+        error: (err) => {},
+        next: (d) => {
+          var selectedRec = {};
+          if (d['count'] > 0) {
+            d['result'].map((v, k) => {
+              if (v.displaySymbol == searchVal) {
+                selectedRec = v;
+                return;
+              }
+            });
+            this.stockDataService.getQuoteBySymbol(searchVal).subscribe((d) => {
+              this.rearrangeData(selectedRec, d);
+            });
           }
-        });
-        this.stockDataService.getQuoteBySymbol(searchVal).subscribe((d) => {
-          this.rearrangeData(selectedRec, d);
-        });
-        this.showLoader = false;
-      }
-    });
+        },
+        complete: () => {},
+      });
   }
 
   rearrangeData(symboldata: object, quotedata: object) {
