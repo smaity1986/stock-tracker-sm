@@ -16,13 +16,14 @@
           required
           #stockInput="ngModel"
         />
-        <div *ngIf="showError && stockInput.invalid" class="error">
-          Stock Symbol is required for search
-        </div>
       </div>
 
       <div class="col-sm-4">
-        <button class="btn btn-success shadow-lg rounded-0" id="trackBtn">
+        <button
+          class="btn btn-success shadow-lg rounded-0"
+          [disabled]="stockInput.invalid"
+          id="trackBtn"
+        >
           Track Stock
         </button>
       </div>
