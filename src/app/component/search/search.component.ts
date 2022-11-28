@@ -13,7 +13,6 @@ export class SearchComponent implements OnInit {
   stockArr = [];
 
   listDataSet = [];
-  isSubmitted = false;
   showError = false;
 
   @Output() newItemEvent = new EventEmitter<string>();
@@ -23,17 +22,12 @@ export class SearchComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit(data: object) {
-    this.isSubmitted = true;
     let searchVal = data['stockInput'].toUpperCase();
     this.showError = false;
-    if (!searchVal && this.isSubmitted) {
-      this.showError = true;
-      return;
-    }
+
     if (!this.checkIfExists(searchVal)) {
       this.newItemEvent.emit(searchVal);
       this.stockModel.stockInput = '';
-      this.isSubmitted = false;
     }
   }
 
