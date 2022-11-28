@@ -30,7 +30,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-sm-4">
+                  <div class="col-sm-6">
                     <label class="label lable-medium"
                       >MSPR: {{ d.mspr | number: '1.2-2' }}</label
                     >
@@ -54,7 +54,7 @@
   <div class="row" *ngIf="isLoaded && !showLoader">
     <div class="col-sm-8 mt-3">
       <a
-        class="btn btn-secondary shadow-lg btn-sm rounded-0"
+        class="btn btn-success shadow-lg btn-sm rounded-0"
         id="backBtn"
         (click)="goBacktoList()"
       >

@@ -3,9 +3,10 @@
 @import '~font-awesome/css/font-awesome.css';
 .serach-container {
   margin-top: 20px;
-  border: 2px solid rgb(24, 22, 22);
+  border: 1px solid rgb(198 223 63);
   padding: 15px;
   width: 100%;
+  border-radius: 5px;
 }
 
 .label {
@@ -44,6 +45,8 @@
 }
 .close {
   cursor: pointer;
+  font-weight: bold;
+  color: rgb(214, 113, 30);
 }
 
 .error {
@@ -65,6 +68,5 @@
 
 .sentiment {
   margin-top: 26px;
-  display: block;
   position: relative;
 }
