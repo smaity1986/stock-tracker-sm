@@ -50,6 +50,10 @@ export class MainComponent implements OnInit {
                 return;
               }
             });
+
+            if (Object.keys(selectedRec).length === 0) {
+              return;
+            }
             this.stockDataService.getQuoteBySymbol(searchVal).subscribe((d) => {
               this.rearrangeData(selectedRec, d);
             });
