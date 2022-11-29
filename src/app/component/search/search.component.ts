@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ListStockData } from '../../models/listStockData.model';
 
 @Component({
   selector: 'app-search',
@@ -7,7 +8,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./search.component.css'],
 })
 export class SearchComponent implements OnInit {
-  stockArr: Array<Object> = [];
+  stockArr: Array<ListStockData> = [];
 
   @Output() newItemEvent = new EventEmitter<string>();
 
