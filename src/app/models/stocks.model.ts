@@ -1,4 +1,11 @@
 export interface Stocks {
   count: number;
-  result: Array<Object>;
+  result: [
+    {
+      description: string;
+      displaySymbol: string;
+      symbol: string;
+      type: string;
+    }
+  ];
 }
