@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs';
 import { ListStockData } from '../../models/listStockData.model';
-import { Quotes } from '../../models/quotes.model';
-import { Stocks } from '../../models/stocks.model';
 import { StockDataService } from '../../services/stock-data.service';
 
 @Component({
@@ -42,22 +40,22 @@ export class MainComponent implements OnInit {
       )
       .subscribe({
         error: (err) => {},
-        next: (d: Stocks) => {
-          var quotedata = {};
+        next: (d) => {
+          var symboldata = {};
           if (d['count'] > 0) {
             d['result'].map((v: object, k: number) => {
               if (v['displaySymbol'] == searchVal) {
-                quotedata = v;
+                symboldata = v;
                 return;
               }
             });
 
-            if (Object.keys(quotedata).length === 0) {
-              quotedata = d['result'][0];
+            if (Object.keys(symboldata).length === 0) {
+              symboldata = d['result'][0];
             }
             this.stockDataService
               .getQuoteBySymbol(searchVal)
-              .subscribe((symboldata: Quotes) => {
+              .subscribe((quotedata) => {
                 let finalDataSet: ListStockData = {
                   change_today: symboldata['change_today'],
                   current_price: symboldata['current_price'],
@@ -87,6 +85,7 @@ export class MainComponent implements OnInit {
 
                 var symbol = symboldata['displaySymbol'];
                 if (!this.checkIfExists(symbol)) {
+                  console.log(finalDataSet);
                   this.listData.push(finalDataSet);
                   localStorage.setItem(
                     'stockArr',
