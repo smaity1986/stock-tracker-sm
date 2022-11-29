@@ -19,12 +19,12 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
     this.showLoader = true;
-    this.listData = [];
+    //this.listData = [];
     let stockArr = localStorage.getItem('stockArr');
     stockArr = JSON.parse(stockArr);
     Object.assign(this.listData, stockArr);
 
-    this.stockSymbol = [];
+    //this.stockSymbol = [];
     let stockSym = localStorage.getItem('searchSymbol');
     stockSym = JSON.parse(stockSym);
     Object.assign(this.stockSymbol, stockSym);
