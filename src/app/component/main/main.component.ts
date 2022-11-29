@@ -14,7 +14,7 @@ export class MainComponent implements OnInit {
   listData: Array<ListStockData> = [];
   isLoaded: boolean = false;
   showLoader: boolean = false;
-  stockArr: Array<Object> = [];
+  stockArr: Array<ListStockData> = [];
   stockSymbol: Array<String> = [];
   constructor(private stockDataService: StockDataService) {}
 
@@ -57,7 +57,7 @@ export class MainComponent implements OnInit {
             }
             this.stockDataService
               .getQuoteBySymbol(searchVal)
-              .subscribe((symboldata) => {
+              .subscribe((symboldata: Quotes) => {
                 let finalDataSet: ListStockData = {
                   change_today: symboldata['change_today'],
                   current_price: symboldata['current_price'],

@@ -15,7 +15,7 @@ export class SentimentComponent implements OnInit {
   isLoaded: boolean = false;
   showLoader: boolean = false;
   lable: string;
-  monthList = [
+  monthList: Array<string> = [
     'January',
     'February',
     'March',
@@ -66,20 +66,12 @@ export class SentimentComponent implements OnInit {
               details['data'][details['data'].length - 1]['month'];
             for (let i = details['data'].length + 1; i <= 3; i++) {
               lastMonth = lastMonth == 12 ? 1 : lastMonth + 1;
-              details['data'][i - 1] = {
-                change: 0,
-                month: 0,
-                mspr: 0,
-                symbol: '',
-                year: 0,
-                nodata: 0,
-              };
+              Object.assign(details['data'][i - 1], {});
               details['data'][i - 1]['month'] = lastMonth;
               details['data'][i - 1]['nodata'] = 1;
             }
           }
           this.sentimentDetails = details;
-          console.log(this.sentimentDetails);
         },
         complete: () => {},
       });
