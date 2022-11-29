@@ -84,7 +84,6 @@ export class MainComponent implements OnInit {
 
                 var symbol = symboldata['displaySymbol'];
                 if (!this.checkIfExists(symbol)) {
-                  console.log(finalDataSet);
                   this.listData.push(finalDataSet);
                   localStorage.setItem(
                     'stockArr',
