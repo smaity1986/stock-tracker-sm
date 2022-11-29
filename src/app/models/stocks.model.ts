@@ -1,11 +1,6 @@
+import { SymbolData } from './symbol.model';
+
 export interface Stocks {
   count: number;
-  result: [
-    {
-      description: string;
-      displaySymbol: string;
-      symbol: string;
-      type: string;
-    }
-  ];
+  result: Array<SymbolData>;
 }
