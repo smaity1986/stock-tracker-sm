@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs';
 import { ListStockData } from '../../models/listStockData.model';
 import { Quotes } from '../../models/quotes.model';
+import { Stocks } from '../../models/stocks.model';
 import { StockDataService } from '../../services/stock-data.service';
 
 @Component({
@@ -19,12 +20,10 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
     this.showLoader = true;
-    //this.listData = [];
     let stockArr = localStorage.getItem('stockArr');
     stockArr = JSON.parse(stockArr);
     Object.assign(this.listData, stockArr);
 
-    //this.stockSymbol = [];
     let stockSym = localStorage.getItem('searchSymbol');
     stockSym = JSON.parse(stockSym);
     Object.assign(this.stockSymbol, stockSym);
@@ -43,63 +42,68 @@ export class MainComponent implements OnInit {
       )
       .subscribe({
         error: (err) => {},
-        next: (d) => {
-          var selectedRec = {};
+        next: (d: Stocks) => {
+          var quotedata = {};
           if (d['count'] > 0) {
             d['result'].map((v: object, k: number) => {
               if (v['displaySymbol'] == searchVal) {
-                selectedRec = v;
+                quotedata = v;
                 return;
               }
             });
 
-            if (Object.keys(selectedRec).length === 0) {
-              selectedRec = d['result'][0];
+            if (Object.keys(quotedata).length === 0) {
+              quotedata = d['result'][0];
             }
-            this.stockDataService.getQuoteBySymbol(searchVal).subscribe((d) => {
-              this.rearrangeData(selectedRec, d);
-            });
+            this.stockDataService
+              .getQuoteBySymbol(searchVal)
+              .subscribe((symboldata) => {
+                let finalDataSet: ListStockData = {
+                  change_today: symboldata['change_today'],
+                  current_price: symboldata['current_price'],
+                  description: symboldata['description'],
+                  displaySymbol: symboldata['displaySymbol'],
+                  high_price: symboldata['high_price'],
+                  opening_price: symboldata['opening_price'],
+                  stock_sign: symboldata['stock_sign'],
+                  symbol: symboldata['symbol'],
+                  type: symboldata['type'],
+                };
+
+                if (quotedata['c']) {
+                  finalDataSet['current_price'] = quotedata['c'];
+                }
+                if (quotedata['dp']) {
+                  finalDataSet['change_today'] = quotedata['dp'];
+                  finalDataSet['stock_sign'] =
+                    quotedata['dp'] > 0 ? 'up' : 'down';
+                }
+                if (quotedata['o']) {
+                  finalDataSet['opening_price'] = quotedata['o'];
+                }
+                if (quotedata['h']) {
+                  finalDataSet['high_price'] = quotedata['h'];
+                }
+
+                var symbol = symboldata['displaySymbol'];
+                if (!this.checkIfExists(symbol)) {
+                  this.listData.push(finalDataSet);
+                  localStorage.setItem(
+                    'stockArr',
+                    JSON.stringify(this.listData)
+                  );
+                  this.stockSymbol.push(symbol);
+                  localStorage.setItem(
+                    'searchSymbol',
+                    JSON.stringify(this.stockSymbol)
+                  );
+                }
+                this.isLoaded = true;
+              });
           }
         },
         complete: () => {},
       });
-  }
-
-  rearrangeData(symboldata: object, quotedata: Quotes) {
-    let finalDataSet: ListStockData = {
-      change_today: symboldata['change_today'],
-      current_price: symboldata['current_price'],
-      description: symboldata['description'],
-      displaySymbol: symboldata['displaySymbol'],
-      high_price: symboldata['high_price'],
-      opening_price: symboldata['opening_price'],
-      stock_sign: symboldata['stock_sign'],
-      symbol: symboldata['symbol'],
-      type: symboldata['type'],
-    };
-    //finalDataSet = symboldata;
-    if (quotedata['c']) {
-      finalDataSet['current_price'] = quotedata['c'];
-    }
-    if (quotedata['dp']) {
-      finalDataSet['change_today'] = quotedata['dp'];
-      finalDataSet['stock_sign'] = quotedata['dp'] > 0 ? 'up' : 'down';
-    }
-    if (quotedata['o']) {
-      finalDataSet['opening_price'] = quotedata['o'];
-    }
-    if (quotedata['h']) {
-      finalDataSet['high_price'] = quotedata['h'];
-    }
-
-    var symbol = symboldata['displaySymbol'];
-    if (!this.checkIfExists(symbol)) {
-      this.listData.push(finalDataSet);
-      localStorage.setItem('stockArr', JSON.stringify(this.listData));
-      this.stockSymbol.push(symbol);
-      localStorage.setItem('searchSymbol', JSON.stringify(this.stockSymbol));
-    }
-    this.isLoaded = true;
   }
 
   checkIfExists(symbol: string) {
