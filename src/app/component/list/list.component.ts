@@ -11,17 +11,19 @@ export class ListComponent implements OnInit {
   @Input() data: Array<ListStockData> = [];
   @Output() removeItemEvent = new EventEmitter<string>();
 
+  stockArr: Array<ListStockData> = [];
+
   constructor(private router: Router) {}
 
   ngOnInit() {}
 
   removeStock(symbol: string) {
     let stocks = localStorage.getItem('stockArr');
-    let stockArr = JSON.parse(stocks);
+    this.stockArr = JSON.parse(stocks);
 
-    stockArr.map((v: object, k: number) => {
+    this.stockArr.map((v, k) => {
       if (v['displaySymbol'] == symbol) {
-        stockArr.splice(k, 1);
+        this.stockArr.splice(k, 1);
         return;
       }
     });
@@ -37,8 +39,8 @@ export class ListComponent implements OnInit {
 
     document.getElementById('stock' + symbol).remove();
     this.removeItemEvent.emit(symbol);
-    if (stockArr.length) {
-      localStorage.setItem('stockArr', JSON.stringify(stockArr));
+    if (this.stockArr.length) {
+      localStorage.setItem('stockArr', JSON.stringify(this.stockArr));
       localStorage.setItem('searchSymbol', JSON.stringify(symArr));
     } else {
       localStorage.removeItem('stockArr');
