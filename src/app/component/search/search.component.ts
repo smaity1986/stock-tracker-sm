@@ -7,8 +7,6 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./search.component.css'],
 })
 export class SearchComponent implements OnInit {
-  stockInput: NgForm;
-
   stockArr: Array<Object> = [];
   showError: boolean = false;
 
@@ -19,12 +17,12 @@ export class SearchComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit(data: object) {
-    let searchVal = data['stockInput'].toUpperCase();
+    let searchVal = data.controls.stockInput.value.toUpperCase();
     this.showError = false;
 
     if (!this.checkIfExists(searchVal)) {
       this.newItemEvent.emit(searchVal);
-      this.stockInput.reset();
+      //this.stockInput.reset();
     }
   }
 
