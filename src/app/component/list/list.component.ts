@@ -19,8 +19,8 @@ export class ListComponent implements OnInit {
     let stocks = localStorage.getItem('stockArr');
     let stockArr = JSON.parse(stocks);
 
-    stockArr.map((v, k) => {
-      if (v.displaySymbol == symbol) {
+    stockArr.map((v: object, k: number) => {
+      if (v['displaySymbol'] == symbol) {
         stockArr.splice(k, 1);
         return;
       }
