@@ -57,9 +57,6 @@ export class SentimentComponent implements OnInit {
         })
       )
       .subscribe({
-        error: (err) => {
-          this.sentimentDetails['data'] = [];
-        },
         next: (details) => {
           if (details['data'].length && details['data'].length < 3) {
             var lastMonth =
@@ -73,7 +70,6 @@ export class SentimentComponent implements OnInit {
                 symbol: '',
                 year: 0,
               };
-
               details['data'][i - 1]['month'] = lastMonth;
               details['data'][i - 1]['nodata'] = 1;
             }
@@ -81,6 +77,9 @@ export class SentimentComponent implements OnInit {
           this.sentimentDetails = details;
         },
         complete: () => {},
+        error: (err) => {
+          this.sentimentDetails['data'] = [];
+        },
       });
   }
 

@@ -39,7 +39,6 @@ export class MainComponent implements OnInit {
         })
       )
       .subscribe({
-        error: (err) => {},
         next: (d) => {
           var symboldata = {};
           if (d['count'] > 0) {
@@ -102,6 +101,7 @@ export class MainComponent implements OnInit {
           }
         },
         complete: () => {},
+        error: (err) => {},
       });
   }
 
