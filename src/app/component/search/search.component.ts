@@ -31,8 +31,8 @@ export class SearchComponent implements OnInit {
       return isMatched;
     }
 
-    JSON.parse(stockArr).map((v, k) => {
-      if (v.displaySymbol == symbol) {
+    JSON.parse(stockArr).map((v: object, k: number) => {
+      if (v['displaySymbol'] == symbol) {
         isMatched = true;
         return;
       }

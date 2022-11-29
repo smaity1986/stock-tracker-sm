@@ -31,13 +31,13 @@ export class SentimentComponent implements OnInit {
   ];
 
   constructor(
-    private _activatedRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private stockDataService: StockDataService,
     private router: Router
   ) {}
 
   ngOnInit() {
-    this.searchSymbol = this._activatedRoute.snapshot.params.symbol;
+    this.searchSymbol = this.activatedRoute.snapshot.params.symbol;
     this.lable = localStorage.getItem('sentiment_name');
     this.getDetails();
   }
@@ -66,6 +66,14 @@ export class SentimentComponent implements OnInit {
               details['data'][details['data'].length - 1]['month'];
             for (let i = details['data'].length + 1; i <= 3; i++) {
               lastMonth = lastMonth == 12 ? 1 : lastMonth + 1;
+              details['data'][i - 1] = {
+                change: 0,
+                month: 0,
+                mspr: 0,
+                symbol: '',
+                year: 0,
+                nodata: 0,
+              };
               details['data'][i - 1]['month'] = lastMonth;
               details['data'][i - 1]['nodata'] = 1;
             }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs';
+import { ListStockData } from '../../models/listStockData.model';
 import { Quotes } from '../../models/quotes.model';
 import { StockDataService } from '../../services/stock-data.service';
 
@@ -9,7 +10,7 @@ import { StockDataService } from '../../services/stock-data.service';
   styleUrls: ['./main.component.css'],
 })
 export class MainComponent implements OnInit {
-  listData: Array<Object> = [];
+  listData: Array<ListStockData> = [];
   isLoaded: boolean = false;
   showLoader: boolean = false;
   stockArr: Array<Object> = [];
@@ -65,8 +66,18 @@ export class MainComponent implements OnInit {
   }
 
   rearrangeData(symboldata: object, quotedata: Quotes) {
-    let finalDataSet = {};
-    finalDataSet = symboldata;
+    let finalDataSet: ListStockData = {
+      change_today: symboldata['change_today'],
+      current_price: symboldata['current_price'],
+      description: symboldata['description'],
+      displaySymbol: symboldata['displaySymbol'],
+      high_price: symboldata['high_price'],
+      opening_price: symboldata['opening_price'],
+      stock_sign: symboldata['stock_sign'],
+      symbol: symboldata['symbol'],
+      type: symboldata['type'],
+    };
+    //finalDataSet = symboldata;
     if (quotedata['c']) {
       finalDataSet['current_price'] = quotedata['c'];
     }

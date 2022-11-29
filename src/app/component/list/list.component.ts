@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { ListStockData } from '../../models/listStockData.model';
 
 @Component({
   selector: 'app-list',
@@ -7,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./list.component.css'],
 })
 export class ListComponent implements OnInit {
-  @Input() data = [];
+  @Input() data: Array<ListStockData> = [];
   @Output() removeItemEvent = new EventEmitter<string>();
 
   constructor(private router: Router) {}
@@ -27,7 +28,7 @@ export class ListComponent implements OnInit {
 
     let stocksSym = localStorage.getItem('searchSymbol');
     let symArr = JSON.parse(stocksSym);
-    symArr.map((v, k) => {
+    symArr.map((v: string, k: number) => {
       if (v == symbol) {
         symArr.splice(k, 1);
         return;

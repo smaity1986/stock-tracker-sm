@@ -4,5 +4,5 @@ export interface SentimentData {
   mspr: number;
   symbol: string;
   year: number;
-  nodata: number;
+  nodata?: number;
 }
