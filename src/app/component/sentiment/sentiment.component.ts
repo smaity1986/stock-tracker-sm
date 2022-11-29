@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StockDataService } from '../../services/stock-data.service';
 import { finalize } from 'rxjs';
+import { SentimentDetails } from '../../models/sentimentDetails.model';
 
 @Component({
   selector: 'app-sentiment',
@@ -9,10 +10,10 @@ import { finalize } from 'rxjs';
   styleUrls: ['./sentiment.component.css'],
 })
 export class SentimentComponent implements OnInit {
-  sentimentDetails: object;
+  sentimentDetails: SentimentDetails;
   searchSymbol: string;
-  isLoaded = false;
-  showLoader = false;
+  isLoaded: boolean = false;
+  showLoader: boolean = false;
   lable: string;
   monthList = [
     'January',
@@ -57,7 +58,7 @@ export class SentimentComponent implements OnInit {
       )
       .subscribe({
         error: (err) => {
-          this.sentimentDetails = [];
+          this.sentimentDetails['data'] = [];
         },
         next: (details) => {
           if (details['data'].length && details['data'].length < 3) {
@@ -65,12 +66,12 @@ export class SentimentComponent implements OnInit {
               details['data'][details['data'].length - 1]['month'];
             for (let i = details['data'].length + 1; i <= 3; i++) {
               lastMonth = lastMonth == 12 ? 1 : lastMonth + 1;
-              details['data'][i - 1] = new Object();
               details['data'][i - 1]['month'] = lastMonth;
               details['data'][i - 1]['nodata'] = 1;
             }
           }
           this.sentimentDetails = details;
+          console.log(this.sentimentDetails);
         },
         complete: () => {},
       });

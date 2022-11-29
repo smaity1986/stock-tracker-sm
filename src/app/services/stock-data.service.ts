@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../environments/environment';
+import { Stocks } from '../models/stocks.model';
+import { SentimentDetails } from '../models/sentimentDetails.model';
+import { Quotes } from '../models/quotes.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,28 +15,34 @@ export class StockDataService {
   constructor(private http: HttpClient) {}
 
   getStockBySymbol(sym: string) {
-    return this.http.get(
-      this.API_URL + '/search?q=' + sym + '&token=' + this.API_KEY
-    );
+    let searchCriteria = new HttpParams();
+    searchCriteria = searchCriteria.append('q', sym);
+    searchCriteria = searchCriteria.append('token', this.API_KEY);
+    return this.http.get<Stocks>(this.API_URL + '/search', {
+      params: searchCriteria,
+    });
   }
 
   getQuoteBySymbol(sym: string) {
-    return this.http.get(
-      this.API_URL + '/quote?symbol=' + sym + '&token=' + this.API_KEY
-    );
+    let searchCriteria = new HttpParams();
+    searchCriteria = searchCriteria.append('symbol', sym);
+    searchCriteria = searchCriteria.append('token', this.API_KEY);
+    return this.http.get<Quotes>(this.API_URL + '/quote', {
+      params: searchCriteria,
+    });
   }
 
   getSentimentBySymbol(sym: string, from: string, to: string) {
-    return this.http.get(
-      this.API_URL +
-        '/stock/insider-sentiment?symbol=' +
-        sym +
-        '&from=' +
-        from +
-        '&to=' +
-        to +
-        '&token=' +
-        this.API_KEY
+    let searchCriteria = new HttpParams();
+    searchCriteria = searchCriteria.append('symbol', sym);
+    searchCriteria = searchCriteria.append('from', from);
+    searchCriteria = searchCriteria.append('to', to);
+    searchCriteria = searchCriteria.append('token', this.API_KEY);
+    return this.http.get<SentimentDetails>(
+      this.API_URL + '/stock/insider-sentiment',
+      {
+        params: searchCriteria,
+      }
     );
   }
 }

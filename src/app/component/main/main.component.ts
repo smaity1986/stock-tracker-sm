@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs';
+import { Quotes } from '../../models/quotes.model';
 import { StockDataService } from '../../services/stock-data.service';
 
 @Component({
@@ -8,11 +9,11 @@ import { StockDataService } from '../../services/stock-data.service';
   styleUrls: ['./main.component.css'],
 })
 export class MainComponent implements OnInit {
-  listData = [];
-  isLoaded = false;
-  showLoader = false;
-  stockArr = [];
-  stockSymbol = [];
+  listData: Array<Object> = [];
+  isLoaded: boolean = false;
+  showLoader: boolean = false;
+  stockArr: Array<Object> = [];
+  stockSymbol: Array<String> = [];
   constructor(private stockDataService: StockDataService) {}
 
   ngOnInit() {
@@ -44,8 +45,8 @@ export class MainComponent implements OnInit {
         next: (d) => {
           var selectedRec = {};
           if (d['count'] > 0) {
-            d['result'].map((v, k) => {
-              if (v.displaySymbol == searchVal) {
+            d['result'].map((v: object, k: number) => {
+              if (v['displaySymbol'] == searchVal) {
                 selectedRec = v;
                 return;
               }
@@ -63,7 +64,7 @@ export class MainComponent implements OnInit {
       });
   }
 
-  rearrangeData(symboldata: object, quotedata: object) {
+  rearrangeData(symboldata: object, quotedata: Quotes) {
     let finalDataSet = {};
     finalDataSet = symboldata;
     if (quotedata['c']) {
@@ -98,8 +99,8 @@ export class MainComponent implements OnInit {
       return isMatched;
     }
 
-    JSON.parse(stockArr).map((v, k) => {
-      if (v.displaySymbol == symbol) {
+    JSON.parse(stockArr).map((v: object, k: number) => {
+      if (v['displaySymbol'] == symbol) {
         isMatched = true;
         return;
       }
@@ -110,13 +111,13 @@ export class MainComponent implements OnInit {
 
   clearMainData(symbol: string) {
     this.listData.map((v, k) => {
-      if (v.displaySymbol == symbol) {
+      if (v['displaySymbol'] == symbol) {
         this.listData.splice(k, 1);
         return;
       }
     });
 
-    this.stockSymbol.map((v, k) => {
+    this.stockSymbol.map((v: string, k: number) => {
       if (v == symbol) {
         this.stockSymbol.splice(k, 1);
         return;

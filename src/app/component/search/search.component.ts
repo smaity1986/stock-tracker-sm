@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-search',
@@ -6,14 +7,10 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./search.component.css'],
 })
 export class SearchComponent implements OnInit {
-  stockModel = {
-    stockInput: '',
-  };
+  stockInput: NgForm;
 
-  stockArr = [];
-
-  listDataSet = [];
-  showError = false;
+  stockArr: Array<Object> = [];
+  showError: boolean = false;
 
   @Output() newItemEvent = new EventEmitter<string>();
 
@@ -27,7 +24,7 @@ export class SearchComponent implements OnInit {
 
     if (!this.checkIfExists(searchVal)) {
       this.newItemEvent.emit(searchVal);
-      this.stockModel.stockInput = '';
+      this.stockInput.reset();
     }
   }
 
