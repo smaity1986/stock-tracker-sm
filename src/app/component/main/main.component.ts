@@ -13,7 +13,7 @@ export class MainComponent implements OnInit {
   isLoaded: boolean = false;
   showLoader: boolean = false;
   stockArr: Array<ListStockData> = [];
-  stockSymbol: Array<String> = [];
+  stockSymbol: Array<string> = [];
   constructor(private stockDataService: StockDataService) {}
 
   ngOnInit() {
