@@ -62,7 +62,7 @@ export class SentimentComponent implements OnInit {
             var lastMonth =
               details['data'][details['data'].length - 1]['month'];
             for (let i = details['data'].length + 1; i <= 3; i++) {
-              lastMonth = lastMonth == 12 ? 1 : lastMonth + 1;
+              lastMonth = lastMonth > 12 ? 1 : lastMonth + 1;
               details['data'][i - 1] = {
                 change: 0,
                 month: 0,
